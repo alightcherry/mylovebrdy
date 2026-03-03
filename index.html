@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shravya ❤️ Forever</title>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',cursive;
+overflow:hidden;
+background:black;
+color:white;
+text-align:center;
+}
+
+video{
+position:fixed;
+right:0;
+bottom:0;
+min-width:100%;
+min-height:100%;
+z-index:-1;
+filter:brightness(40%);
+}
+
+#intro{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:2em;
+animation:fadeOut 4s forwards 3s;
+}
+
+@keyframes fadeOut{
+to{opacity:0;visibility:hidden;}
+}
+
+#lock{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+input,button{
+padding:10px 20px;
+border-radius:20px;
+border:none;
+margin-top:15px;
+}
+
+button{
+background:#ff4e8a;
+color:white;
+cursor:pointer;
+}
+
+#main{
+display:none;
+padding:20px;
+}
+
+h1{
+font-size:2.5em;
+animation:rotate 5s linear infinite;
+}
+
+@keyframes rotate{
+from{transform:rotateY(0deg);}
+to{transform:rotateY(360deg);}
+}
+
+.slideshow{
+width:220px;
+height:220px;
+margin:auto;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 0 20px pink;
+}
+
+.slideshow img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+#letter{
+margin:20px auto;
+width:85%;
+min-height:100px;
+}
+
+.timeline{
+font-size:14px;
+margin-top:15px;
+}
+
+.heart{
+position:fixed;
+top:-10px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh);opacity:0;}
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<video autoplay muted loop>
+<source src="bgvideo.mp4" type="video/mp4">
+</video>
+
+<div id="intro">
+✨ A Special Surprise For Shravya ✨
+</div>
+
+<div id="lock">
+<h2>Enter Our Special Date 💖</h2>
+<input type="password" id="pass" placeholder="Hint: 05-04">
+<button onclick="unlock()">Unlock ❤️</button>
+</div>
+
+<div id="main">
+<h1>Shravya 👑❤️</h1>
+
+<div id="countdown"></div>
+
+<div class="slideshow">
+<img id="slide" src="photo1.jpg">
+</div>
+
+<div id="letter"></div>
+
+<div class="timeline">
+✨ The day we met – My life changed<br>
+💖 The first smile – I fell for you<br>
+🌸 April 5 – The Queen was born<br>
+💍 Forever – Only You  
+</div>
+
+<br>
+<button onclick="proposal()" id="yesBtn">Will You Be Mine Forever? 💍</button>
+</div>
+
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="fireworks"></canvas>
+
+<script>
+
+// Unlock
+function unlock(){
+if(document.getElementById("pass").value==="05-04"){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").style.display="block";
+startFireworks();
+typeLetter();
+}
+else{alert("Wrong Password 😘");}
+}
+
+// Countdown
+var countDate=new Date("April 5, 2026 00:00:00").getTime();
+setInterval(function(){
+var now=new Date().getTime();
+var dist=countDate-now;
+var d=Math.floor(dist/(1000*60*60*24));
+var h=Math.floor((dist%(1000*60*60*24))/(1000*60*60));
+var m=Math.floor((dist%(1000*60*60))/(1000*60));
+var s=Math.floor((dist%(1000*60))/1000);
+document.getElementById("countdown").innerHTML=
+"Countdown ❤️ "+d+"d "+h+"h "+m+"m "+s+"s";
+},1000);
+
+// Slideshow
+var imgs=["photo1.jpg","photo2.jpg","photo3.jpg"];
+var i=0;
+setInterval(function(){
+i=(i+1)%imgs.length;
+document.getElementById("slide").src=imgs[i];
+},3000);
+
+// Typing Letter
+var text="Shravya, you are my heart, my peace, my forever. On this April 5, I promise to love you endlessly and stand by you always. ❤️";
+var j=0;
+function typeLetter(){
+if(j<text.length){
+document.getElementById("letter").innerHTML+=text.charAt(j);
+j++;
+setTimeout(typeLetter,40);
+}
+}
+
+// Proposal Moving Button
+var yes=document.getElementById("yesBtn");
+yes.addEventListener("mouseover",function(){
+yes.style.position="absolute";
+yes.style.left=Math.random()*80+"%";
+yes.style.top=Math.random()*80+"%";
+});
+
+// Proposal Click
+function proposal(){
+alert("I Love You Shravya ❤️ Forever & Always 💍✨");
+}
+
+// Floating Hearts
+setInterval(function(){
+var heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},300);
+
+// Fireworks
+function startFireworks(){
+var canvas=document.getElementById("fireworks");
+var ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+setInterval(function(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(var i=0;i<100;i++){
+ctx.beginPath();
+ctx.arc(Math.random()*canvas.width,
+Math.random()*canvas.height,
+2,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+}
+},150);
+}
+</script>
+
+</body>
+</html>
